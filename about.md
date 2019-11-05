@@ -1,19 +1,17 @@
 ---
-layout: page
-title: About
-permalink: /about/
+layout: about
+title:  "Acerca de Nostros"
 ---
 
+# Del Curso
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Para tener un certificado
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+___
+___
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+**Razones**
 
-
-[jekyll-organization]: https://github.com/jekyll
+1. Por que si
+1. Por que no
+1. Por que ya

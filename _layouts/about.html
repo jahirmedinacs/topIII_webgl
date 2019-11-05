@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include head.html %}
+    <body class="bgimg_body">
+        {% include mathjax.html %}
+        <!-- BODY -- START -->
+        {% include navbar.html %}
+
+        {% include page_subtitle.html %}
+
+        <div class="container white darken-4">
+            <div class="row">
+                <div class="col s12">
+                    {{ content }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- BODY -- END -->
+        <!--  Scripts-->
+        {% include footer.html%}
+    </body>
+</html>

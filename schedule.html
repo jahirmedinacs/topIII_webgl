@@ -1,0 +1,30 @@
+---
+layout: default
+title:  "Cronograma"
+subtitle: "Para revisar los materiales y diapositivas de las clases entra a la seccion \"Clases\""
+---
+
+<div class="container z-depth-1 white darken-4">
+    <div class="row">
+        <div class="col12">
+        <table class="striped highlight responsive-table centered">
+        <thead>
+          <tr>
+            <th></th>
+          	<th>Tema</th>
+            <th>Profesor</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+        </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="{{ site.base_permalink }}js/personal.js"></script>
+<script type="text/javascript">
+    JSONtoTableSchedule(document.getElementById("tableBody"), "{{ site.scheduleJSON }}")
+</script>
