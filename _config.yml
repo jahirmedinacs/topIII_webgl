@@ -18,16 +18,16 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Machine Learning UNT 2019
+title: WebGL - Morphing
 email: jahir.medina@pm.me
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-baseurl: "/mlunt2019" # the subpath of your site, e.g. /blog
+baseurl: "/web-morphing" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
-github_username: mlseunt
+github_username: jahirmedinacs
 
 # Build settings
 # theme: minima
@@ -56,8 +56,8 @@ github_username: mlseunt
 
 ### PERSONAL VARIABLES
 
-base_permalink: "/mlunt2019/"
+base_permalink: "/web-morphing/"
 
-repo_name: mlunt2019
+repo_name: web-morphing
 
 scheduleJSON: "https://gist.githubusercontent.com/jahirmedinacs/2fee770949cc009e1cc0f520bda64f45/raw/2beba4d840159b268ebdbb4e9a1ed450fb16bb41/schedule.JSON"
