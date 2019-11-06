@@ -64,4 +64,4 @@ repo_name: topIII_webgl
 
 ### SITE VARIABLES
 
-include: [assets/favicon/*, assets/post_assets/*]
+include: [/topIII_webgl/assets/favicon/*, /topIII_webgl/assets/post_assets/*]
