@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-baseurl: "/web-morphing" # the subpath of your site, e.g. /blog
+baseurl: "/topIII_webgl" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username: jahirmedinacs
@@ -56,11 +56,11 @@ github_username: jahirmedinacs
 
 ### PERSONAL VARIABLES
 
-base_permalink: "/web-morphing/"
+base_permalink: "/topIII_webgl/"
 
-repo_name: web-morphing
+repo_name: topIII_webgl
 
-scheduleJSON: "https://gist.githubusercontent.com/jahirmedinacs/2fee770949cc009e1cc0f520bda64f45/raw/2beba4d840159b268ebdbb4e9a1ed450fb16bb41/schedule.JSON"
+# scheduleJSON: "https://gist.githubusercontent.com/jahirmedinacs/2fee770949cc009e1cc0f520bda64f45/raw/2beba4d840159b268ebdbb4e9a1ed450fb16bb41/schedule.JSON"
 
 ### SITE VARIABLES
 
