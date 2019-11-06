@@ -60,14 +60,17 @@ base_permalink: "/topIII_webgl/"
 
 repo_name: topIII_webgl
 
-# scheduleJSON: "https://gist.githubusercontent.com/jahirmedinacs/2fee770949cc009e1cc0f520bda64f45/raw/2beba4d840159b268ebdbb4e9a1ed450fb16bb41/schedule.JSON"
+objJSON: "https://gist.githubusercontent.com/jahirmedinacs/f665e2573fa33a58750efc7e20c31d6c/raw/68cbe9b72560630fef131a02f13055ae8842fed8/obj.JSON"
 
 ### SITE VARIABLES
 
 include: 
   - /topIII_webgl/assets/favicon/
+  - /topIII_webgl/assets/favicon/*
   - /topIII_webgl/assets/
+  - /topIII_webgl/assets/*
   - /topIII_webgl/assets/post_assets/
+  - /topIII_webgl/assets/post_assets/*
 
 sass:
   sass_dir: _sass

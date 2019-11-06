@@ -10,7 +10,8 @@ var color_ratio = 0.1 // entre 0 y 1
 var color_speed = 2
 var changed = 0
 
-var JSON_OBJ_PATH = REF_ASSETS_PATH + "/obj/obj.JSON"
+// var JSON_OBJ_PATH = REF_ASSETS_PATH + "/obj/obj.JSON"
+var JSON_OBJ_PATH = "https://gist.githubusercontent.com/jahirmedinacs/f665e2573fa33a58750efc7e20c31d6c/raw/68cbe9b72560630fef131a02f13055ae8842fed8/obj.JSON"
 
 loadJSON(main);
 
