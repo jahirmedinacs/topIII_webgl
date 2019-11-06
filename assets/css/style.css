@@ -24,3 +24,8 @@
   strong{
     font-weight: bolder;
   }
+
+  .higlight {
+    max-height: 300px;
+    overflow-y: auto;
+  }
