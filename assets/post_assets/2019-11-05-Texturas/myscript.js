@@ -1,5 +1,9 @@
 var cubeRotation = 0.0;
 
+var RETURN_PATH = "../../../assets/post_assets/"
+var POST_NAME = "2019-11-05-Texturas"
+
+var REF_ASSETS_PATH = RETURN_PATH + POST_NAME
 main();
 
 //
@@ -71,7 +75,7 @@ function main() {
   const buffers = initBuffers(gl);
 
   // ### CAMBIAR SOLO ../../../assets/post_assets/[AQUI]
-  const texture = loadTexture(gl, "../../../assets/post_assets/2019-01-01-Fundamentos/textures/hexagon.jpg");
+  const texture = loadTexture(gl, REF_ASSETS_PATH + "/textures/hexagon.jpg");
 
   var then = 0;
 
