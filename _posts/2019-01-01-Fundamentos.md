@@ -12,15 +12,11 @@ ___El uso de texturas en los modelos 3D es una practica moderna que permite aseg
 ---
 ---
 
-### Demo
 > (Demo Base Extraida de [Aqui](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL))
 
-> Codigo webGL y Demas recursos <a href="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/" target="_blank">Aqui</a>
-<center>
-  <canvas id="glcanvas" width="640" height="480"></canvas>
-</center>
+> Codigo webGL y demas recursos <a href="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/" target="_blank">Aqui</a>
 
-### Version Personal
+
 
 # Explicacion del Codigo
 
