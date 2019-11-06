@@ -4,6 +4,11 @@ var RETURN_PATH = "../../../assets/post_assets/"
 var POST_NAME = "2019-11-05-Texturas"
 
 var REF_ASSETS_PATH = RETURN_PATH + POST_NAME
+
+var RGB = [0.0, 0.0, 0.0]
+var color_ratio = 0.1 // entre 0 y 1
+var color_speed = 2
+var changed = 0
 main();
 
 //
@@ -79,11 +84,38 @@ function main() {
 
   var then = 0;
 
-  // Draw the scene repeatedly
+  // Draw the scene repeatedly BUCLE
   function render(now) {
     now *= 0.001;  // convert to seconds
+
+    // RAINBOW BEGINS
+    var nowInt = Math.floor((now) % color_speed)
+    if( nowInt === 0 && now >= 1 ){
+      if(changed === 0){
+        var refIdx = Math.floor(parseFloat(3 * Math.random()))
+
+        if(RGB[refIdx] > 1){
+          RGB[refIdx] -= 1
+        }
+        else{
+          RGB[refIdx] += color_ratio
+        }
+
+        console.log(now)
+        console.log(RGB)
+      }
+      changed += 1
+      console.log(changed)
+    }
+    else{
+      changed = 0
+    }
+    // RAINBOW END
+
     const deltaTime = now - then;
     then = now;
+
+
 
     drawScene(gl, programInfo, buffers, texture, deltaTime);
 
@@ -284,8 +316,12 @@ function isPowerOf2(value) {
 //
 // Draw the scene.
 //
+
 function drawScene(gl, programInfo, buffers, texture, deltaTime) {
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
+  gl.clearColor(RGB[0], RGB[1], RGB[2], 1.0);  // Clear to black, fully opaque
+  
+  console.log( "Current Backcolor", RGB)
+  
   gl.clearDepth(1.0);                 // Clear everything
   gl.enable(gl.DEPTH_TEST);           // Enable depth testing
   gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
