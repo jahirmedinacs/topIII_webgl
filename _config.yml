@@ -68,3 +68,8 @@ include:
   - /topIII_webgl/assets/favicon/
   - /topIII_webgl/assets/
   - /topIII_webgl/assets/post_assets/
+
+sass:
+  sass_dir: _sass
+
+highlighter: rouge
