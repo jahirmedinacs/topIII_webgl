@@ -21,7 +21,6 @@ function main(objDATA) {
   const canvas = document.querySelector('#glcanvas');
   const gl = canvas.getContext('webgl');
 
-  objDATA = JSON.parse(objDATA)
   console.log(objDATA);
   // If we don't have a GL context, give up now
 
@@ -82,7 +81,7 @@ function main(objDATA) {
 
   // Here's where we call the routine that builds all the
   // objects we'll be drawing.
-  const buffers = initBuffers(gl, objDATA);
+  const buffers = initBuffers(gl);
 
   // ### CAMBIAR SOLO ../../../assets/post_assets/[AQUI]
   const texture = loadTexture(gl, REF_ASSETS_PATH + "/textures/hexagon.jpg");
@@ -105,8 +104,12 @@ function main(objDATA) {
         else{
           RGB[refIdx] += color_ratio
         }
+
+        console.log(now)
+        console.log(RGB)
       }
       changed += 1
+      console.log(changed)
     }
     else{
       changed = 0
@@ -131,7 +134,7 @@ function main(objDATA) {
 // Initialize the buffers we'll need. For this demo, we just
 // have one object -- a simple three-dimensional cube.
 //
-function initBuffers(gl, objDATA) {
+function initBuffers(gl) {
 
   // Create a buffer for the cube's vertex positions.
 
@@ -143,7 +146,7 @@ function initBuffers(gl, objDATA) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   // Now create an array of positions for the cube.
-  // const positions = objDATA.position // AQUI  SE INTENTO CARGAR DESDE JSON PERO DA UN ERROR DE INDICES
+
   const positions = [
     // Front face
     -1.0, -1.0,  1.0,
@@ -193,7 +196,6 @@ function initBuffers(gl, objDATA) {
   const textureCoordBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
 
-  // const textureCoordinates = objDATA.textureCoordinates // AQUI  SE INTENTO CARGAR DESDE JSON PERO DA UN ERROR DE INDICES
   const textureCoordinates = [
     // Front
     0.0,  0.0,
@@ -240,7 +242,6 @@ function initBuffers(gl, objDATA) {
   // indices into the vertex array to specify each triangle's
   // position.
 
-  // const indices = objDATA.indices // AQUI  SE INTENTO CARGAR DESDE JSON PERO DA UN ERROR DE INDICES
   const indices = [
     0,  1,  2,      0,  2,  3,    // front
     4,  5,  6,      4,  6,  7,    // back
@@ -249,7 +250,7 @@ function initBuffers(gl, objDATA) {
     16, 17, 18,     16, 18, 19,   // right
     20, 21, 22,     20, 22, 23,   // left
   ];
-  console.log(indices)
+
   // Now send the element array to GL
 
   gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
@@ -322,7 +323,9 @@ function isPowerOf2(value) {
 
 function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   gl.clearColor(RGB[0], RGB[1], RGB[2], 1.0);  // Clear to black, fully opaque
-
+  
+  console.log( "Current Backcolor", RGB)
+  
   gl.clearDepth(1.0);                 // Clear everything
   gl.enable(gl.DEPTH_TEST);           // Enable depth testing
   gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
