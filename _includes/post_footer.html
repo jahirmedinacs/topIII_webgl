@@ -1,6 +1,14 @@
 <script src="{{ site.baseurl }}/assets/js/materialize.js"></script>
 <script src="{{ site.baseurl }}/assets/js/webgl/gl-matrix.js"></script>
+
 <script src="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/myscript.js"></script>
+{% for myscriptsAlt in page.alt_js %}
+<script src="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/{{ myscriptsAlt }}"></script>
+{% endfor %}
+
+{% for jsURL in page.additional_scripts %}
+<script src="{{ jsURL }}"></script>
+{% endfor %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     M.AutoInit();

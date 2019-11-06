@@ -11,9 +11,11 @@
         <!-- RESPONSIVE CANVAS START -->
         
         <script type="text/javascript">
-            var canvas = document.getElementById('glcanvas');
-            var heightRatio = 1.5;
-            canvas.height = canvas.width * heightRatio;
+            function dynamicCanvas(id){
+                var canvas = document.getElementById(id);
+                var heightRatio = 1.5;
+                canvas.height = canvas.width * heightRatio;
+            }
         </script>
         <!-- RESPONSIVE CANVAS END -->
 
@@ -24,7 +26,7 @@
                     <h3>{{ post.title }}</h3>
                     <div>
                         <center>
-                            <canvas id="glcanvas" style="width: 100%;"></canvas>
+                            <canvas id="glcanvas" style="width: 100%;" onload="dynamicCanvas(this.id)"></canvas>
                         </center>
                     </div>
                 </div>
