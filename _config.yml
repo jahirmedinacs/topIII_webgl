@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: WebGL - Morphing
+title: WebGL - Topicos III
 email: jahir.medina@pm.me
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -61,3 +61,7 @@ base_permalink: "/web-morphing/"
 repo_name: web-morphing
 
 scheduleJSON: "https://gist.githubusercontent.com/jahirmedinacs/2fee770949cc009e1cc0f520bda64f45/raw/2beba4d840159b268ebdbb4e9a1ed450fb16bb41/schedule.JSON"
+
+### SITE VARIABLES
+
+include: [assets/favicon/*, assets/post_assets/*]

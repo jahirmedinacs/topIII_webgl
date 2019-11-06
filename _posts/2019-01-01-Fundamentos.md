@@ -12,14 +12,22 @@ ___El uso de texturas en los modelos 3D es una practica moderna que permite aseg
 ---
 ---
 
+### Demo
+> (Demo Base Extraida de [Aqui](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL))
+
+> Codigo webGL y Demas recursos <a href="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/" target="_blank">Aqui</a>
 <center>
   <canvas id="glcanvas" width="640" height="480"></canvas>
 </center>
 
-<script src="{{ site.baseurl }}/js/webgl/gl-matrix.js"></script>
-<script src="{{ site.baseurl }}/js/posts_js/{{ page.file_name }}/webgl-demo.js"></script>
+### Version Personal
 
-<!-- <script src="node_modules/three/build/three.js"></script>
-<div>
-    <script src="myscripts.js"></script>
-</div> -->
+# Explicacion del Codigo
+
+
+
+{% highlight javascript linenos %}
+var cubeRotation = 0.0;
+
+main();
+{% endhighlight %}

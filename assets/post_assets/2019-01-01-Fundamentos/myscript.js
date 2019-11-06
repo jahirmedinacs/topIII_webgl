@@ -70,7 +70,8 @@ function main() {
   // objects we'll be drawing.
   const buffers = initBuffers(gl);
 
-  const texture = loadTexture(gl, "../../../assets/textures/cubetexture.png");
+  // ### CAMBIAR SOLO ../../../assets/post_assets/[AQUI]
+  const texture = loadTexture(gl, "../../../assets/post_assets/2019-01-01-Fundamentos/textures/hexagon.jpg");
 
   var then = 0;
 
