@@ -23,12 +23,18 @@ function strDate(dateValue) {
 	return output;
 }
 
-function toggle_visibility(id) {
+function toggle_visibility(id, refCaller) {
     var e = document.getElementById(id);
-    if(e.style.display == 'block')
+    if(e.style.display == 'block'){
       e.style.display = 'none';
-    else
+      refCaller.innerHTML = "<b>Mostrar</b>";
+      refCaller.title = "Mostar";
+    }
+    else{
       e.style.display = 'block';
+      refCaller.innerHTML = "<b>Ocultar</b>";
+      refCaller.title = "Ocultar";
+    }
     }
 
 // RESPONSIVE CANVAS START
