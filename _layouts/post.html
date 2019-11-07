@@ -8,34 +8,25 @@
 
         {% include post_subtitle.html %}
 
-        <!-- RESPONSIVE CANVAS START -->
-        
-        <script type="text/javascript">
-            function dynamicCanvas(id){
-                var canvas = document.getElementById(id);
-                var heightRatio = 1.5;
-                canvas.height = canvas.width * heightRatio;
-            }
-        </script>
-        <!-- RESPONSIVE CANVAS END -->
-
         <div class="container white darken-4">
             <div class="row">
                 <div class="col s12">
-                <div class="center-align">
-                    <h3>{{ post.title }}</h3>
-                    <div>
-                        <center>
-                            <canvas id="glcanvas" style="width: 100%;" onload="dynamicCanvas(this.id)"></canvas>
-                        </center>
-                    </div>
-                </div>
-                {{ content }}
+                    {% include canvas.html canvas_name="glcanvas" canvas_subtext="Demo" %}
+                    {{ content }}
                 </div>
             </div>
         </div>
         <!-- BODY -- END -->
-        <!--  Scripts-->
-        {% include post_footer.html%}
+        <!--  Scripts BEGIN -->
+        {% include post_footer.html %}
+        <script>
+            webgl_scene();
+
+            {% for inits_fun in page.alt_js_inits %}
+                {{ inits_fun }}
+            {% endfor %}
+        </script>
+        {% include footer.html %}
+        <!-- Scripts END -->
     </body>
 </html>

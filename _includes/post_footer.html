@@ -1,16 +1,18 @@
-<script src="{{ site.baseurl }}/assets/js/materialize.js"></script>
+<!-- WEBGL BASE BEGIN -->
 <script src="{{ site.baseurl }}/assets/js/webgl/gl-matrix.js"></script>
+<script src="{{ site.baseurl }}/assets/js/webgl/gl-personal.js"></script>
+<!-- WEBGL BASE END -->
 
+<!-- SPECIFIC WEBGL/ABOUT POST JS BEGIN -->
 <script src="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/myscript.js"></script>
+
 {% for myscriptsAlt in page.alt_js %}
 <script src="{{ site.baseurl }}/assets/post_assets/{{ page.file_name }}/{{ myscriptsAlt }}"></script>
 {% endfor %}
+<!-- SPECIFIC WEBGL/ABOUT POST JS END -->
 
+<!-- SPECIFIC FUNCTIONALITY POST JS BEGIN -->
 {% for jsURL in page.additional_scripts %}
 <script src="{{ jsURL }}"></script>
 {% endfor %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    M.AutoInit();
-});
-</script>
+<!-- SPECIFIC FUNCTIONALITY POST JS END -->
