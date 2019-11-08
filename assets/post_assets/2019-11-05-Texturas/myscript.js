@@ -22,7 +22,7 @@ function webgl_scene(){
     const canvas = document.querySelector('#glcanvas');
     const gl = canvas.getContext('webgl');
 
-    console.log(objDATA);
+    // console.log(objDATA);
     // If we don't have a GL context, give up now
 
     if (!gl) {
