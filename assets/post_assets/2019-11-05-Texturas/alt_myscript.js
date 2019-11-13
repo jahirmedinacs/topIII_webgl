@@ -12,6 +12,7 @@ function webgl_scene2(){
   var changed = 0
 
   var JSON_OBJ_PATH = REF_ASSETS_PATH + "/OBJ_files/obj.JSON"
+  // var JSON_OBJ_PATH = REF_ASSETS_PATH + "/OBJ_files/alt_obj.JSON"
   var scaleRatio = 0.5
 
   loadJSON(main, JSON_OBJ_PATH);
@@ -87,7 +88,7 @@ function webgl_scene2(){
     const buffers2 = initBuffers(gl2, objDATA);
 
     // ### CAMBIAR SOLO ../../../assets/post_assets/[AQUI]
-    const texture2 = loadTexture(gl2, REF_ASSETS_PATH + "/textures/barney.jpg");
+    const texture2 = loadTexture(gl2, REF_ASSETS_PATH + "/textures/hexagon.jpg");
 
     var then = 0;
 
