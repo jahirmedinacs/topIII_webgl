@@ -1,9 +1,7 @@
-function webgl_scene(){
+function webgl_scene(POST_NAME){
   var cubeRotation = 0.0;
 
   var RETURN_PATH = "../../../assets/post_assets/"
-  var POST_NAME = "2019-11-05-Texturas"
-
   var REF_ASSETS_PATH = RETURN_PATH + POST_NAME
 
   var RGB = [0.0, 0.0, 0.0]

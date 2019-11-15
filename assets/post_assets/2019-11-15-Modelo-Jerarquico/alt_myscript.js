@@ -1,4 +1,4 @@
-function webgl_scene2(POST_NAME){
+function webgl_scene(POST_NAME){
   var cubeRotation = 0.0;
 
   var RETURN_PATH = "../../../assets/post_assets/"
@@ -19,7 +19,7 @@ function webgl_scene2(POST_NAME){
   // Start here
   //
   function main(objDATA) {
-    const canvas2 = document.querySelector('#canvas2');
+    const canvas2 = document.querySelector('#glcanvas');
     const gl2 = canvas2.getContext('webgl');
 
     objDATA = JSON.parse(objDATA)

@@ -40,6 +40,8 @@ function toggle_visibility(id, refCaller) {
 // RESPONSIVE CANVAS START
 function dynamicCanvas(id){
     var canvas = document.getElementById(id);
+    console.log(canvas.width, canvas.height);
+    canvas.width = window.innerWidth;
     var heightRatio = 1.5;
     canvas.height = canvas.width * heightRatio;
 }

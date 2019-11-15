@@ -20,10 +20,10 @@
         <!--  Scripts BEGIN -->
         {% include post_footer.html %}
         <script>
-            webgl_scene();
+            webgl_scene("{{ page.file_name }}");
 
             {% for inits_fun in page.alt_js_inits %}
-                {{ inits_fun }}
+                {{ inits_fun }}("{{ page.file_name }}")
             {% endfor %}
         </script>
         {% include footer.html %}
