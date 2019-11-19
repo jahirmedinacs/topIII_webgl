@@ -3,34 +3,14 @@ function webgl_scene(POST_NAME){
   var RETURN_PATH = "../../../assets/post_assets/"
   var REF_ASSETS_PATH = RETURN_PATH + POST_NAME
   var JSON_OBJ_PATH = REF_ASSETS_PATH + "/OBJ_files/obj.JSON"
-  
-  // var cubeRotation = 0.0;
 
-  // var RGB = [0.0, 0.0, 0.0]
-  // var color_ratio = 0.1 // entre 0 y 1
-  // var color_speed = 2
-  // var changed = 0
-
-  // var scaleRatio = 0.5
-
-  // loadJSON(main, JSON_OBJ_PATH);
-
-  //
-  // Start here
-  //
-// ------------------------------------------------
-// BASIC SETUP
-// ------------------------------------------------
-  
-  let canvasWidth = document.querySelector('#glcanvas').width
-  let canvasHeight = document.querySelector('#glcanvas').height
-
-
+  let canvas = document.querySelector('#glcanvas');
+  console.log(canvas.clientWidth, canvas.clientHeight);
   // Create an empty scene
   var scene = new THREE.Scene();
 
-  // Create a basic perspective camera
-  var camera = new THREE.PerspectiveCamera( 90, canvasWidth/canvasHeight, 0.1, 1000 );
+  
+  var camera = new THREE.PerspectiveCamera( 90, canvas.clientWidth/canvas.clientHeight, 0.1, 1000 );
   camera.position.z = 4;
 
   // Create a renderer with Antialiasing
@@ -40,7 +20,7 @@ function webgl_scene(POST_NAME){
   renderer.setClearColor("#000000");
 
   // Configure renderer size
-  renderer.setSize( canvasWidth, canvasHeight );
+  renderer.setSize( canvas.clientWidth, canvas.clientHeight, false);
 
   // Append Renderer to DOM
   // console.log(renderer.domElement);
