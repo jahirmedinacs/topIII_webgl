@@ -13,6 +13,11 @@
 
 <!-- SPECIFIC FUNCTIONALITY POST JS BEGIN -->
 {% for jsURL in page.additional_scripts %}
-<script src="{{ jsURL }}"></script>
+    <script src="{{ jsURL }}"></script>
 {% endfor %}
+
+{% for jsURL in page.additional_modules %}
+    <script type="module" src="{{ jsURL }}"></script>
+{% endfor %}
+
 <!-- SPECIFIC FUNCTIONALITY POST JS END -->
