@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - trackball controls</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			body {
+				background-color: #ccc;
+				color: #000;
+			}
+			a {
+				color: #f00;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script type="module">
+
+import * as THREE from './assets/build/three.module.js';
+
+import Stats from './assets/js/jsm/libs/stats.module.js';
+import { GUI } from './assets/js/jsm/libs/dat.gui.module.js';
+
+import { TrackballControls } from './assets/js/jsm/controls/TrackballControls.js';
+
+import {OBJLoader2} from './assets/js/jsm/loaders/OBJLoader2.js';
+
+var perspectiveCamera, orthographicCamera, controls, scene, renderer, stats;
+
+var params = {
+	orthographicCamera: false
+};
+
+var frustumSize = 400;
+
+init();
+animate();
+
+function init() {
+
+	var aspect = window.innerWidth / window.innerHeight;
+
+	perspectiveCamera = new THREE.PerspectiveCamera( 90, aspect, 1, 1000 );
+	perspectiveCamera.position.set(0, 10, 10);
+	
+	orthographicCamera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
+	orthographicCamera.position.set(0, 10, 10);
+	
+	scene = new THREE.Scene();
+	// perspectiveCamera.lookAt(scene.position);
+
+	let axes = new THREE.AxesHelper(100);
+	scene.add(axes);
+
+	floor();
+	skyBox();
+
+
+	// objects
+
+	{
+      const objLoader = new OBJLoader2();
+      objLoader.load('hierarchy/human.obj', (root) => {
+        scene.add(root);
+      });
+    }
+
+	// renderer
+
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setPixelRatio( window.devicePixelRatio );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild( renderer.domElement );
+
+	stats = new Stats();
+	document.body.appendChild( stats.dom );
+
+	window.addEventListener( 'resize', onWindowResize, false );
+
+	createControls( perspectiveCamera );
+
+	render();
+
+}
+
+function createControls( camera ) {
+
+	controls = new TrackballControls( camera, renderer.domElement );
+
+	controls.rotateSpeed = 1.0;
+	controls.zoomSpeed = 1.2;
+	controls.panSpeed = 0.8;
+
+	controls.staticMoving = true;
+	controls.dynamicDampingFactor = 0.3;
+
+	controls.keys = [ 65, 83, 68 ];
+
+	controls.addEventListener( 'change', render );
+
+}
+
+function onWindowResize() {
+
+	var aspect = window.innerWidth / window.innerHeight;
+
+	perspectiveCamera.aspect = aspect;
+	perspectiveCamera.updateProjectionMatrix();
+
+	orthographicCamera.left = - frustumSize * aspect / 2;
+	orthographicCamera.right = frustumSize * aspect / 2;
+	orthographicCamera.top = frustumSize / 2;
+	orthographicCamera.bottom = - frustumSize / 2;
+	orthographicCamera.updateProjectionMatrix();
+
+	renderer.setSize( window.innerWidth, window.innerHeight );
+
+	controls.handleResize();
+
+	render();
+
+}
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	controls.update();
+
+	stats.update();
+
+}
+
+function render() {
+
+	var camera = ( params.orthographicCamera ) ? orthographicCamera : perspectiveCamera;
+
+	renderer.render( scene, camera );
+
+}
+			
+//////////////////////////// Functions
+
+
+function skyBox() {
+let materialArray = [];
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-xpos.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-xneg.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-ypos.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-yneg.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-zpos.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-zneg.png' ) }));
+for (let i = 0; i < 6; i++)
+    materialArray[i].side = THREE.BackSide;
+let skyboxMaterial = materialArray;
+let skyboxGeom = new THREE.CubeGeometry( 500, 500, 500, 1, 1, 1 );
+let skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
+scene.add( skybox );
+}
+
+function floor() {
+let floorTexture = new new THREE.TextureLoader().load( 'hierarchy/textures/checkerboard.jpg' );
+floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set( 10, 10 );
+let floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+let floorGeometry = new THREE.PlaneGeometry(500, 500, 10, 10);
+let floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.position.y = -0.5;
+floor.rotation.x = Math.PI / 2;
+scene.add(floor);
+}
+
+		</script>
+
+	</body>
+</html>

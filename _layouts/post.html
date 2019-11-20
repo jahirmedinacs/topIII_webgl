@@ -21,12 +21,16 @@
         {% include post_footer.html %}
             {% if page.special_init == "threejs" %}
                 <script type="module">
-                    import * as THREE from '../../../assets/js/build/three.module.js';
-                    import Stats from '../../../assets/js/jsm/libs/stats.module.js';
-                    // import { GUI } from './jsm/libs/dat.gui.module.js';
-                    import { TrackballControls } from '../../../assets/js/jsm/controls/TrackballControls.js';
+                    import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/build/three.module.js';
+                    import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/controls/OrbitControls.js';
+                    import {OBJLoader2} from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/loaders/OBJLoader2.js';
+                    import {MTLLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/loaders/MTLLoader.js';
+                    import {MtlObjBridge} from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/loaders/obj2/bridge/MtlObjBridge.js';
 
-                    webgl_scene("{{ page.file_name }}");
+                    threeMain("{{ page.file_name }}")
+                    {% for inits_fun in page.alt_js_inits %}
+                        {{ inits_fun }}("{{ page.file_name }}")
+                    {% endfor %}
                 </script>
             {% else %}
                 <script>

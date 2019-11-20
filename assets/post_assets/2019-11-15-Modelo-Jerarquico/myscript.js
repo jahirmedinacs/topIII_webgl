@@ -1,102 +1,101 @@
-function webgl_scene(POST_NAME){
-  let REF_ASSETS_PATH = "../../../assets/post_assets/" + POST_NAME + "/";
-  let JSON_OBJ_PATH = REF_ASSETS_PATH + "/OBJ_files/obj.JSON"
-  let canvas = document.querySelector('#glcanvas');
+function threeMain(POST_NAME){
+    var RETURN_PATH = "../../../assets/post_assets/"
+    var REF_ASSETS_PATH = RETURN_PATH + POST_NAME
+    console.log(REF_ASSETS_PATH)
+  
+  const canvas = document.querySelector('#glcanvas');
+  const renderer = new THREE.WebGLRenderer({antialias:true, canvas: glcanvas});
+  renderer.setSize( canvas.clientWidth, canvas.clientHeight, false);
+  renderer.setClearColor("#000000");
 
-  let perspectiveCamera, controls, scene, renderer, stats;
+  const fov = 45;
+  const aspect = 2;  // the canvas default
+  const near = 0.1;
+  const far = 100;
+  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.set(0, 10, 20);
 
+  const controls = new OrbitControls(camera, canvas);
+  controls.target.set(0, 5, 0);
+  controls.update();
 
-  init();
-  animate();
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color('black');
 
-  function init() {
-    scene = new THREE.Scene();
+  {
+    const planeSize = 40;
 
-    camera = new THREE.PerspectiveCamera( 75, canvas.clientWidth/canvas.clientHeight, 1, 20000 );
-    camera.position.set(0, 100, 200);
-    camera.lookAt(scene.position);
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.magFilter = THREE.NearestFilter;
+    const repeats = planeSize / 2;
+    texture.repeat.set(repeats, repeats);
 
-    renderer = new THREE.WebGLRenderer({antialias:true, canvas: glcanvas});
-    renderer.setSize( canvas.clientWidth, canvas.clientHeight, false);
-    renderer.setClearColor("#000000");
-
-    //SCENE
-
-    let axes = new THREE.AxesHelper(100);
-    scene.add(axes);
-
-    floor();
-    skyBox();
-
-
-    // objects
-
-    let material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(REF_ASSETS_PATH + 'textures/crate.jpg') });
-    let geometry = new THREE.CubeGeometry(50, 50, 50);
-    let cube = new THREE.Mesh(geometry, material);
-    cube.position.set(0, 25, 0);
-    scene.add(cube);
-
-    // controlls
-
-    createControls( perspectiveCamera );
-
-    // stats
-
-    stats = new Stats();
-    canvas.appendChild( stats.dom );
+    const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+    const planeMat = new THREE.MeshPhongMaterial({
+      map: texture,
+      side: THREE.DoubleSide,
+    });
+    const mesh = new THREE.Mesh(planeGeo, planeMat);
+    mesh.rotation.x = Math.PI * -.5;
+    scene.add(mesh);
   }
 
-  function animate() {
-    requestAnimationFrame( animate );
-    render();
+  {
+    const skyColor = 0xB1E1FF;  // light blue
+    const groundColor = 0xB97A20;  // brownish orange
+    const intensity = 1;
+    const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    scene.add(light);
+  }
+
+  {
+    const color = 0xFFFFFF;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(5, 10, 2);
+    scene.add(light);
+    scene.add(light.target);
+  }
+
+  {
+    const mtlLoader = new MTLLoader();
+    mtlLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill-fixed.mtl', (mtlParseResult) => {
+      const objLoader = new OBJLoader2();
+      const materials =  MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult);
+      materials.Material.side = THREE.DoubleSide;
+      objLoader.addMaterials(materials);
+      objLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.obj', (root) => {
+        scene.add(root);
+      });
+    });
+  }
+
+  function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
   }
 
   function render() {
-    let camera = perspectiveCamera;
+
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+
     renderer.render(scene, camera);
+
+    requestAnimationFrame(render);
   }
 
-    //////////////////////////// Functions
-
-
-  function skyBox() {
-    let materialArray = [];
-    materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/dawnmountain-xpos.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/dawnmountain-xneg.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/dawnmountain-ypos.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/dawnmountain-yneg.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/dawnmountain-zpos.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/dawnmountain-zneg.png' ) }));
-    for (let i = 0; i < 6; i++)
-        materialArray[i].side = THREE.BackSide;
-    let skyboxMaterial = materialArray;
-    let skyboxGeom = new THREE.CubeGeometry( 5000, 5000, 5000, 1, 1, 1 );
-    let skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
-    scene.add( skybox );
-  }
-
-  function floor() {
-    let floorTexture = new new THREE.TextureLoader().load( REF_ASSETS_PATH + 'textures/checkerboard.jpg' );
-    floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.set( 10, 10 );
-    let floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
-    let floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
-    let floor = new THREE.Mesh(floorGeometry, floorMaterial);
-    floor.position.y = -0.5;
-    floor.rotation.x = Math.PI / 2;
-    scene.add(floor);
-  }
-
-  function createControls( camera ) {
-    controls = new TrackballControls( camera, renderer.domElement );
-    controls.rotateSpeed = 1.0;
-    controls.zoomSpeed = 1.2;
-    controls.panSpeed = 0.8;
-    controls.staticMoving = true;
-    controls.dynamicDampingFactor = 0.3;
-    controls.keys = [ 65, 83, 68 ];
-    controls.addEventListener( 'change', render );
-  }
+  requestAnimationFrame(render);
 }
-  
