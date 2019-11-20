@@ -72,7 +72,7 @@ include:
   - /topIII_webgl/assets/post_assets/
   - /topIII_webgl/assets/post_assets/*
   - /topIII_webgl/assets/js/*
-  - /topIII_webgl/assets/js/three/
+  - /topIII_webgl/assets/js/build/
   - /topIII_webgl/assets/js/jsm/
 
 sass:
