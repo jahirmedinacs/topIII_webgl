@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js webgl - trackball controls</title>
+		<title>{{ site.name }} - Hierarchy</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="main.css">
+		<script src="./assets/js/webgl/gl-personal.js"></script>
 		<style>
 			body {
 				background-color: #ccc;
@@ -26,9 +27,76 @@ import { GUI } from './assets/js/jsm/libs/dat.gui.module.js';
 
 import { TrackballControls } from './assets/js/jsm/controls/TrackballControls.js';
 
-import {OBJLoader2} from './assets/js/jsm/loaders/OBJLoader2.js';
+import {OBJLoader} from './assets/js/jsm/loaders/OBJLoader.js';
 
 var perspectiveCamera, orthographicCamera, controls, scene, renderer, stats;
+
+var humanHierarchy = 
+[
+  "head",
+  [
+    "shoulder",
+    [
+      "peck",
+      [
+        "hip",
+        [
+          "belt",
+          [
+            "r_high_leg",
+            [
+              "r_knee",
+              [
+                "r_lower_leg",
+                [
+                  "r_foot"
+                ]
+              ]
+            ]
+          ],
+          [
+            "l_high_leg",
+            [
+              "l_knee",
+              [
+                "l_lower_leg",
+                [
+                  "l_foot"
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    [
+      "r_high_arm",
+      [
+        "r_elbow",
+        [
+          "r_lower_arm",
+          [
+            "r_hand"
+          ]
+        ]
+      ]
+    ],
+    [
+      "l_high_arm",
+      [
+        "l_elbow",
+        [
+          "l_lower_arm",
+          [
+            "l_hand"
+          ]
+        ]
+      ]
+    ]
+  ]
+]
+;
+
 
 var params = {
 	orthographicCamera: false
@@ -36,18 +104,18 @@ var params = {
 
 var frustumSize = 400;
 
-init();
+human(init);
 animate();
 
-function init() {
+function init(objList) {
 
 	var aspect = window.innerWidth / window.innerHeight;
 
 	perspectiveCamera = new THREE.PerspectiveCamera( 90, aspect, 1, 1000 );
-	perspectiveCamera.position.set(0, 10, 10);
+	perspectiveCamera.position.set(-20, 30, -10);
 	
 	orthographicCamera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
-	orthographicCamera.position.set(0, 10, 10);
+	orthographicCamera.position.set(-20, 30, -10);
 	
 	scene = new THREE.Scene();
 	// perspectiveCamera.lookAt(scene.position);
@@ -58,15 +126,14 @@ function init() {
 	floor();
 	skyBox();
 
-
 	// objects
-
-	{
-      const objLoader = new OBJLoader2();
-      objLoader.load('hierarchy/human.obj', (root) => {
-        scene.add(root);
-      });
-    }
+	let currentObj = null;
+	for(let ii=0; ii<objList.length; ii++){
+		currentObj = objList[ii]
+		scene.add(currentObj)
+	}
+	
+	
 
 	// renderer
 
@@ -77,6 +144,10 @@ function init() {
 
 	stats = new Stats();
 	document.body.appendChild( stats.dom );
+
+	//
+	initGui();
+	//
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
@@ -124,13 +195,17 @@ function onWindowResize() {
 
 }
 
+
+
+
 function animate() {
 
 	requestAnimationFrame( animate );
-
 	controls.update();
-
 	stats.update();
+	render()
+
+	//hierarchy
 
 }
 
@@ -144,6 +219,126 @@ function render() {
 			
 //////////////////////////// Functions
 
+function human(callback){
+var childList = []
+var childCounter = 0;
+var loader = new OBJLoader();
+loader.load( 'hierarchy/human.obj', function ( object ) {
+	object.name = "human";
+	let childName = "";
+    object.traverse( function ( child ) {
+    if ( child instanceof THREE.Mesh ) {
+
+		//Materials
+		childName = child.name;
+
+		if (childName.includes("head") || childName.includes("lower")){
+
+			child.material = new THREE.MeshPhongMaterial( 
+				{ 	
+					color: 0xf4a97a,
+					shininess: 50
+				} 
+			);
+		}
+		else if (childName.includes("foot")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0x072177,
+					metalness: 0.6,
+					clearcoat: 1,
+				} 
+			);
+		}
+		else if (childName.includes("hand")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0x011106,
+					metalness: 1,
+					clearcoat: 1,
+				} 
+			);
+		}
+		else if (childName.includes("peck")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0x0ea035,
+					metalness: 0.3,
+					clearcoat: 0.2,
+				} 
+			);
+		}
+		else if (childName.includes("shoulder")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0xaa0627,
+					metalness: 0.3,
+					clearcoat: 0.2,
+				} 
+			);
+		}
+		else if (childName.includes("high")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0x969407,
+					metalness: 0.3,
+					clearcoat: 0.2,
+				} 
+			);
+		}
+		else if (childName.includes("belt")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0x079694,
+					metalness: 0.3,
+					clearcoat: 0.2,
+				} 
+			);
+		}
+		else if (childName.includes("hip")){
+
+			child.material = new THREE.MeshPhysicalMaterial( 
+				{ 	
+					color: 0xce1104,
+					metalness: 0.3,
+					clearcoat: 0.2,
+				} 
+			);
+		}
+		else{
+			child.material = new THREE.MeshLambertMaterial( { color: 0x0000ff, transparent: true, opacity: 0.8} );
+		}
+			
+        child.geometry.computeVertexNormals();
+        childList.push(child);
+    
+        childCounter++;
+    }
+} );
+
+callback(childList)
+});
+}
+
+function initGui(){
+	var gui = new GUI();
+
+	gui.add( params, 'orthographicCamera' ).name( 'use orthographic' ).onChange( function ( value ) {
+		controls.dispose();
+		createControls( value ? orthographicCamera : perspectiveCamera );
+		
+		render();
+	} );
+
+	
+	gui.add( params, )
+}
 
 function skyBox() {
 let materialArray = [];
@@ -156,8 +351,20 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader()
 for (let i = 0; i < 6; i++)
     materialArray[i].side = THREE.BackSide;
 let skyboxMaterial = materialArray;
-let skyboxGeom = new THREE.CubeGeometry( 500, 500, 500, 1, 1, 1 );
+let skyboxGeom = new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1 );
 let skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
+
+var ambientLight = new THREE.AmbientLight(0xf2e1d2);
+scene.add(ambientLight);
+
+var directionalLight1 = new THREE.DirectionalLight(0xffffff,1);
+directionalLight1.position.set(250,250,250).normalize();
+scene.add(directionalLight1);
+
+var directionalLight2 = new THREE.DirectionalLight(0xffffff,1);
+directionalLight2.position.set(50,30,50).normalize();
+scene.add(directionalLight2);
+
 scene.add( skybox );
 }
 
@@ -165,7 +372,15 @@ function floor() {
 let floorTexture = new new THREE.TextureLoader().load( 'hierarchy/textures/checkerboard.jpg' );
 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set( 10, 10 );
-let floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+let floorMaterial = new THREE.MeshPhysicalMaterial(
+	{ 
+		map: floorTexture, 
+		side: THREE.DoubleSide,
+		roughness: 0.4,
+		metalness: 0.8,
+		clearcoat: 0.4
+	}
+	);
 let floorGeometry = new THREE.PlaneGeometry(500, 500, 10, 10);
 let floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.position.y = -0.5;
