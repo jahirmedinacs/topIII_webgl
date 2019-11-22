@@ -97,6 +97,10 @@ var humanHierarchy =
 ]
 ;
 
+var humanBody = {};
+var human = new THREE.Group();
+threeNavigator(humanHierarchy, 0);
+
 
 var params = {
 	orthographicCamera: false
@@ -104,7 +108,7 @@ var params = {
 
 var frustumSize = 400;
 
-human(init);
+humanLoader(init);
 animate();
 
 function init(objList) {
@@ -127,13 +131,17 @@ function init(objList) {
 	skyBox();
 
 	// objects
+
 	let currentObj = null;
 	for(let ii=0; ii<objList.length; ii++){
 		currentObj = objList[ii]
-		scene.add(currentObj)
+		humanBody[currentObj.name] = currentObj;
+		scene.add(currentObj);
 	}
 	
+	// hierarchyConstructor(humanHierarchy, human)
 	
+	scene.add(human);
 
 	// renderer
 
@@ -219,7 +227,7 @@ function render() {
 			
 //////////////////////////// Functions
 
-function human(callback){
+function humanLoader(callback){
 var childList = []
 var childCounter = 0;
 var loader = new OBJLoader();
@@ -336,8 +344,6 @@ function initGui(){
 		render();
 	} );
 
-	
-	gui.add( params, )
 }
 
 function skyBox() {
@@ -387,6 +393,33 @@ floor.position.y = -0.5;
 floor.rotation.x = Math.PI / 2;
 scene.add(floor);
 }
+
+function threeNavigator(root, level=0){
+	let current;
+	for(let ii=0; ii<root.length; ii++){
+		current = root[ii];
+		if (typeof current === 'string' || current instanceof String){
+			console.log("\t".repeat(level), level, current);
+		}
+		else{
+			threeNavigator(current, level + 1);	
+		}	
+	}
+}
+
+function hierarchyConstructor(root, parent=new THREE.Mesh()){
+	let current;
+	for(let ii=0; ii<root.length; ii++){
+		current = root[ii];
+		if (typeof current === 'string' || current instanceof String){
+			parent.add(humanBody[current]);
+		}
+		else{
+			parent.add(hierarchyConstructor(current, humanBody[current]));	
+		}	
+	}
+}
+		
 
 		</script>
 
