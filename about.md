@@ -1,11 +1,11 @@
 ---
 layout: about
-title:  "Acerca de Nostros"
+title:  "Acerca de"
 ---
 
 # Del Curso
 
-Para tener un certificado
+Para mostrar que JS no solo sirve usando frameworks
 
 ___
 ___

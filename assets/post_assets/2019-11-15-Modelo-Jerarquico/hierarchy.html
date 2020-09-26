@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{{ site.name }} - Hierarchy</title>
+		<title>Hierarchy</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
-		<script src="./assets/js/webgl/gl-personal.js"></script>
+		<!-- <link type="text/css" rel="stylesheet" href="main.css"> -->
+		<script src="../../../assets/js/webgl/gl-personal.js"></script>
 		<style>
 			body {
 				background-color: #ccc;
@@ -20,14 +20,14 @@
 	<body>
 		<script type="module">
 
-import * as THREE from './assets/build/three.module.js';
+import * as THREE from '../../../assets/build/three.module.js';
 
-import Stats from './assets/js/jsm/libs/stats.module.js';
-import { GUI } from './assets/js/jsm/libs/dat.gui.module.js';
+import Stats from '../../../assets/js/jsm/libs/stats.module.js';
+import { GUI } from '../../../assets/js/jsm/libs/dat.gui.module.js';
 
-import { TrackballControls } from './assets/js/jsm/controls/TrackballControls.js';
+import { TrackballControls } from '../../../assets/js/jsm/controls/TrackballControls.js';
 
-import {OBJLoader} from './assets/js/jsm/loaders/OBJLoader.js';
+import {OBJLoader} from '../../../assets/js/jsm/loaders/OBJLoader.js';
 
 var perspectiveCamera, orthographicCamera, controls, scene, renderer, stats;
 
@@ -348,12 +348,12 @@ function initGui(){
 
 function skyBox() {
 let materialArray = [];
-materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-xpos.png' ) }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-xneg.png' ) }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-ypos.png' ) }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-yneg.png' ) }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-zpos.png' ) }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'hierarchy/textures/dawnmountain-zneg.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( './hierarchy/textures/dawnmountain-xpos.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( './hierarchy/textures/dawnmountain-xneg.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( './hierarchy/textures/dawnmountain-ypos.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( './hierarchy/textures/dawnmountain-yneg.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( './hierarchy/textures/dawnmountain-zpos.png' ) }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( './hierarchy/textures/dawnmountain-zneg.png' ) }));
 for (let i = 0; i < 6; i++)
     materialArray[i].side = THREE.BackSide;
 let skyboxMaterial = materialArray;
@@ -375,7 +375,7 @@ scene.add( skybox );
 }
 
 function floor() {
-let floorTexture = new new THREE.TextureLoader().load( 'hierarchy/textures/checkerboard.jpg' );
+let floorTexture = new new THREE.TextureLoader().load( './hierarchy/textures/checkerboard.jpg' );
 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set( 10, 10 );
 let floorMaterial = new THREE.MeshPhysicalMaterial(

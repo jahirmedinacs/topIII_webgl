@@ -19,8 +19,16 @@ file_name: "2019-11-15-Modelo-Jerarquico"
 special_init: "threejs"
 ---
 
-[Click](../../../hierarchy.html)
+
+***El Modelo Jerarquico refiere al estructura de orden para el control del movimiento de alguan figura
+si por ejemplo, tenemos una persona; esta al mover el torso, movera los brazos tambien.***
 
 ---
 ---
 
+{% 
+include 
+    iframe.html URL="../../../assets/post_assets/2019-11-15-Modelo-Jerarquico/hierarchy.html" width="100%" 
+    height="100%" 
+    iframe_subtext="Pantalla Completa"
+%}
